@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="620" viewBox="0 0 1420 620" role="img" aria-labelledby="title description">
+  <title id="title">LexiSyncAI architecture</title>
+  <desc id="description">Legal PDFs are parsed and chunked into a BM25 and dense index. Questions are decomposed, retrieved and reranked, then answered by an LLM. Citations are validated and low-evidence answers abstain before results and highlighted evidence are shown.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#62748a"/>
+    </marker>
+    <style>
+      .bg { fill: #f5f8fc; }
+      .box { fill: #ffffff; stroke: #8ca2bc; stroke-width: 2; rx: 14; }
+      .index { fill: #e7f2ff; stroke: #4a84bd; }
+      .process { fill: #edf8f3; stroke: #4c9a7a; }
+      .guard { fill: #fff5e5; stroke: #c28a2c; }
+      .heading { font: 700 20px Arial, sans-serif; fill: #1d3550; text-anchor: middle; }
+      .label { font: 15px Arial, sans-serif; fill: #40566d; text-anchor: middle; }
+      .section { font: 700 17px Arial, sans-serif; fill: #58718a; }
+      .arrow { fill: none; stroke: #62748a; stroke-width: 3; marker-end: url(#arrow); }
+      .dash { fill: none; stroke: #4a84bd; stroke-width: 3; stroke-dasharray: 8 6; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect class="bg" width="1420" height="620" rx="18"/>
+  <text class="section" x="30" y="38">DOCUMENT INDEXING</text>
+  <text class="section" x="30" y="318">QUESTION ANSWERING</text>
+
+  <rect class="box" x="30" y="72" width="155" height="110"/>
+  <text class="heading" x="107" y="116">Legal PDFs</text>
+  <text class="label" x="107" y="145">2–5 uploaded files</text>
+
+  <rect class="box process" x="230" y="72" width="170" height="110"/>
+  <text class="heading" x="315" y="111">PDF parser</text>
+  <text class="label" x="315" y="140">Reading order · pages</text>
+  <text class="label" x="315" y="161">Headers · tables · scan flags</text>
+
+  <rect class="box process" x="445" y="72" width="170" height="110"/>
+  <text class="heading" x="530" y="111">Clause chunker</text>
+  <text class="label" x="530" y="140">Legal units with</text>
+  <text class="label" x="530" y="161">page and clause IDs</text>
+
+  <rect class="box index" x="660" y="72" width="190" height="110"/>
+  <text class="heading" x="755" y="111">Search indexes</text>
+  <text class="label" x="755" y="140">BM25 + clause tokens</text>
+  <text class="label" x="755" y="161">Dense embeddings</text>
+
+  <path class="arrow" d="M185 127 H230"/>
+  <path class="arrow" d="M400 127 H445"/>
+  <path class="arrow" d="M615 127 H660"/>
+
+  <rect class="box" x="30" y="350" width="155" height="110"/>
+  <text class="heading" x="107" y="394">User question</text>
+  <text class="label" x="107" y="423">Case-specific query</text>
+
+  <rect class="box process" x="230" y="350" width="170" height="110"/>
+  <text class="heading" x="315" y="389">Decomposition</text>
+  <text class="label" x="315" y="418">Optional multi-hop</text>
+  <text class="label" x="315" y="439">sub-queries</text>
+
+  <rect class="box index" x="445" y="350" width="170" height="110"/>
+  <text class="heading" x="530" y="389">Hybrid retrieval</text>
+  <text class="label" x="530" y="418">BM25 + dense + RRF</text>
+  <text class="label" x="530" y="439">Clause-reference boost</text>
+
+  <rect class="box index" x="660" y="350" width="170" height="110"/>
+  <text class="heading" x="745" y="389">Reranking</text>
+  <text class="label" x="745" y="418">Cross-encoder</text>
+  <text class="label" x="745" y="439">Top evidence passages</text>
+
+  <rect class="box process" x="875" y="350" width="170" height="110"/>
+  <text class="heading" x="960" y="389">LLM answer</text>
+  <text class="label" x="960" y="418">Claims from context</text>
+  <text class="label" x="960" y="439">Page + clause citations</text>
+
+  <rect class="box guard" x="1090" y="350" width="170" height="110"/>
+  <text class="heading" x="1175" y="389">Validate &amp; gate</text>
+  <text class="label" x="1175" y="418">Citation validation</text>
+  <text class="label" x="1175" y="439">Abstain if unsupported</text>
+
+  <rect class="box" x="1290" y="350" width="110" height="110"/>
+  <text class="heading" x="1345" y="389">UI</text>
+  <text class="label" x="1345" y="418">Answer</text>
+  <text class="label" x="1345" y="439">Evidence</text>
+
+  <path class="arrow" d="M185 405 H230"/>
+  <path class="arrow" d="M400 405 H445"/>
+  <path class="arrow" d="M615 405 H660"/>
+  <path class="arrow" d="M830 405 H875"/>
+  <path class="arrow" d="M1045 405 H1090"/>
+  <path class="arrow" d="M1260 405 H1290"/>
+  <path class="dash" d="M755 182 V250 H530 V350"/>
+
+  <text class="label" x="705" y="545">Cited passage text and page image are shown alongside each answer.</text>
+</svg>
